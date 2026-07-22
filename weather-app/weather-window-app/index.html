@@ -1,0 +1,347 @@
+<!--config js contains api key, put in that before running-->
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Weather Window</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Pixelify+Sans:wght@500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="page">
+
+    <section class="app">
+
+      <!-- Top bar -->
+      <header class="topbar">
+
+        <div class="brand">
+          <span class="status-dot"></span>
+          <strong>Weather Window</strong>
+        </div>
+
+        <div class="top-actions">
+
+          <button
+            id="soundButton"
+            type="button"
+            title="Turn weather sound on"
+          >
+            🔇
+          </button>
+
+          <div class="top-dots" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+        </div>
+
+      </header>
+
+      <div class="app-body">
+
+        <!-- Landing screen -->
+        <section class="landing" id="landing">
+
+          <div class="landing-art" aria-hidden="true">
+            <div class="particles" id="landingParticles"></div>
+            <div class="city"></div>
+            <div class="forest"></div>
+          </div>
+
+          <div class="curtain curtain-left"></div>
+          <div class="curtain curtain-right"></div>
+
+          <div class="search-card">
+
+            <div class="mini-window" aria-hidden="true"></div>
+
+            <p class="eyebrow">Weather Window</p>
+
+            <h1>Where to go?</h1>
+
+            <p class="landing-text">
+              Enter a city to open the view.
+            </p>
+
+            <form id="cityForm">
+
+              <input
+                id="cityInput"
+                type="search"
+                placeholder="e.g. Karachi"
+                required
+              >
+
+              <button type="submit">
+                Open weather
+              </button>
+
+            </form>
+
+            <button
+              class="text-button"
+              id="locationButton"
+              type="button"
+            >
+              Use current location
+            </button>
+
+          </div>
+
+        </section>
+
+        <!-- Main weather screen -->
+        <section
+          class="weather"
+          id="weather"
+          aria-hidden="true"
+        >
+
+          <div class="scene" id="scene">
+
+            <div
+              class="particles"
+              id="sceneParticles"
+            ></div>
+
+            <div class="scene-city"></div>
+            <div class="scene-forest"></div>
+
+            <div class="weather-head">
+
+              <div>
+
+                <h2>
+                  <span id="cityName">City</span>
+                  <small id="countryCode"></small>
+                </h2>
+
+                <p id="dateText">
+                  Loading...
+                </p>
+
+              </div>
+
+              <button
+                class="round-button"
+                id="changeCityButton"
+                type="button"
+                title="Change city"
+              >
+                ↻
+              </button>
+
+            </div>
+
+            <div class="main-weather">
+
+              <div class="temperature">
+                <span id="temperature">--</span>
+                <small id="temperatureUnit">°C</small>
+              </div>
+
+              <p id="description">
+                Checking the sky...
+              </p>
+
+            </div>
+
+          </div>
+
+          <!-- Main information -->
+          <div class="quick-info">
+
+            <div>
+              <span>Feels like</span>
+              <strong id="feelsLike">--</strong>
+            </div>
+
+            <div>
+              <span>Humidity</span>
+              <strong id="humidity">--</strong>
+            </div>
+
+            <div>
+              <span>Wind</span>
+              <strong id="wind">--</strong>
+            </div>
+
+            <div>
+              <span>Pressure</span>
+              <strong id="pressureMain">--</strong>
+            </div>
+
+            <div>
+              <span>Visibility</span>
+              <strong id="visibilityMain">--</strong>
+            </div>
+
+            <button
+              id="detailsButton"
+              type="button"
+            >
+              All details
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+        <!-- Details popup -->
+        <section
+          class="details"
+          id="details"
+          aria-hidden="true"
+        >
+
+          <div class="details-card">
+
+            <div class="details-title">
+
+              <div>
+                <p class="eyebrow">Weather details</p>
+                <h3 id="detailsCity">City</h3>
+              </div>
+
+              <button
+                id="closeDetailsButton"
+                type="button"
+                aria-label="Close details"
+              >
+                ×
+              </button>
+
+            </div>
+
+            <div class="detail-grid">
+
+              <article>
+                <span>Pressure</span>
+                <strong id="pressure">--</strong>
+              </article>
+
+              <article>
+                <span>Visibility</span>
+                <strong id="visibility">--</strong>
+              </article>
+
+              <article>
+                <span>Sunrise</span>
+                <strong id="sunrise">--</strong>
+              </article>
+
+              <article>
+                <span>Sunset</span>
+                <strong id="sunset">--</strong>
+              </article>
+
+              <article>
+                <span>Local time</span>
+                <strong id="localTime">--</strong>
+              </article>
+
+              <article>
+                <span>Updated</span>
+                <strong id="updatedTime">--</strong>
+              </article>
+
+            </div>
+
+            <div class="forecast-title">
+
+              <div>
+                <p class="eyebrow">Next hours</p>
+                <h4>Forecast</h4>
+              </div>
+
+              <button
+                id="unitButton"
+                type="button"
+              >
+                Show
+                <span id="unitText">°F</span>
+              </button>
+
+            </div>
+
+            <div
+              class="forecast"
+              id="forecast"
+            ></div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Loading screen -->
+  <div class="loader" id="loader">
+
+    <div class="loader-card">
+
+      <div class="loader-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <p id="loaderText">
+        Checking the weather...
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- Error message -->
+  <div class="toast" id="toast">
+
+    <span id="toastText">
+      Something went wrong.
+    </span>
+
+    <button
+      id="closeToastButton"
+      type="button"
+    >
+      ×
+    </button>
+
+  </div>
+
+  <!-- Weather sound -->
+  <audio
+    id="weatherAudio"
+    loop
+  ></audio>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
